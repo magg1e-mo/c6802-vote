@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fbf7f7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>เลือกหัวหน้าห้อง ค.6802</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap">
+<style>
+/* Calm red-white ballot. Solid white cards on a warm white ground, one deep red, Kanit only. */
+:root{
+  --bg:#fbf7f7; --card:#fff; --ink:#24161a; --ink-2:#6e5a5f; --ink-3:#746166;
+  --red:#c8102e; --red-ink:#a10d25; --rose:#fbe4e7; --rose-2:#fff5f6; --line:rgba(36,22,26,.08);
+  --shadow:0 1px 2px rgba(36,22,26,.04),0 10px 28px -14px rgba(36,22,26,.14);
+  --font:"Kanit",system-ui,-apple-system,"Thonburi",sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{min-height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--font);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+::selection{background:var(--red);color:#fff}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px;border-radius:12px}
+button,input{font:inherit;color:inherit}
+.num{font-variant-numeric:tabular-nums}
+.wrap{width:100%;max-width:520px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}
+
+/* header */
+.top{position:sticky;top:0;z-index:20;padding-top:calc(10px + env(safe-area-inset-top,0px));padding-bottom:10px;background:linear-gradient(var(--bg) 70%,rgba(251,247,247,0))}
+.bar{display:flex;align-items:center;gap:12px;padding:10px 12px 10px 18px;border-radius:999px}
+.brand{flex:1;min-width:0}
+.brand h1{margin:0;font-weight:500;font-size:1.06rem;line-height:1.2}
+.brand p{margin:0;font-size:.78rem;color:var(--ink-2);font-weight:300}
+.turn{padding:6px 12px;border-radius:999px;background:var(--rose);color:var(--red-ink);font-size:.8rem;white-space:nowrap}
+.turn b{font-weight:600;font-size:1rem}
+.notice{margin:8px 0 0;padding:9px 14px;border-radius:14px;background:#fff;border:1px dashed rgba(200,16,46,.35);color:var(--ink-2);font-size:.82rem;font-weight:300}
+.notice.warn{border-style:solid;color:var(--red-ink)}
+
+main{padding-top:6px;padding-bottom:calc(120px + env(safe-area-inset-bottom,0px));display:grid;gap:18px}
+.view>div{display:grid;gap:14px}
+h2{margin:0;font-weight:500;font-size:1.3rem;line-height:1.3;text-wrap:balance}
+.sub{margin:4px 0 0;color:var(--ink-2);font-size:.92rem;font-weight:300}
+.pad{padding:22px 20px;display:grid;gap:16px}
+
+/* avatar with photo */
+.av{position:relative;overflow:hidden;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--rose);color:var(--red-ink);font-weight:500;font-size:1.05rem;flex:none;box-shadow:inset 0 0 0 1px rgba(200,16,46,.15)}
+.av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.av.s30{width:30px;height:30px;font-size:.8rem}.av.s40{width:40px;height:40px}.av.s68{width:68px;height:68px;font-size:1.6rem}
+
+/* sign-in */
+label{font-weight:500;font-size:.88rem;color:var(--ink-2)}
+.field{margin-top:6px;display:flex;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:0 16px;transition:border-color .2s,box-shadow .2s}
+.field:focus-within{border-color:rgba(200,16,46,.5);box-shadow:0 0 0 4px rgba(200,16,46,.1)}
+.field .pre{color:var(--ink-3);font-size:1.3rem;font-weight:300;letter-spacing:.04em}
+.field input{flex:1;min-width:0;width:100%;background:none;border:0;outline:0;font-size:1.3rem;font-weight:500;letter-spacing:.06em;padding:14px 0;caret-color:var(--red)}
+.field input::placeholder{color:#a8989c;opacity:1}
+.hint{margin:6px 2px 0;font-size:.82rem;color:var(--ink-3);font-weight:300}
+.err{margin:6px 2px 0;font-size:.86rem;color:var(--red-ink)}
+.me{display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:16px;background:var(--rose)}
+.me p{margin:0;line-height:1.35}.me small{color:var(--ink-2);font-weight:300}
+
+.btn{appearance:none;border:0;border-radius:16px;padding:15px 18px;font-weight:500;font-size:1.02rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;
+  background:linear-gradient(180deg,#d8203c,var(--red));color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 10px 22px -10px rgba(200,16,46,.7);transition:transform .15s}
+.btn:active{transform:scale(.985)}
+.btn:disabled{background:rgba(36,22,26,.08);color:var(--ink-3);box-shadow:none;cursor:not-allowed}
+.btn.ghost{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.link{background:none;border:0;padding:6px;justify-self:center;color:var(--ink-2);text-decoration:underline;text-decoration-color:rgba(36,22,26,.25);text-underline-offset:4px;cursor:pointer;font-size:.88rem;font-weight:300}
+
+/* live top 3 */
+.board{padding:18px 18px 8px}
+.board-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.board-head h2{font-size:1.02rem}
+.live{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;color:var(--ink-2);font-weight:300}
+.live i{width:7px;height:7px;border-radius:50%;background:var(--red);animation:pulse 2s infinite}
+.live.off i{background:#b9a9ad;animation:none}
+@keyframes pulse{50%{opacity:.25}}
+.slot{display:grid;grid-template-columns:28px 40px minmax(0,1fr) auto;column-gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.board-head+.slot{border-top:0}
+.rank{font-weight:300;font-size:1.6rem;line-height:1;color:var(--red);text-align:center}
+.slot[data-rank="1"] .rank{font-weight:500}
+.ph{width:40px;height:40px;border-radius:50%;background:var(--rose);box-shadow:inset 0 0 0 1px rgba(200,16,46,.15)}
+.who{min-width:0}
+.role{font-size:.74rem;color:var(--ink-2);display:flex;gap:6px;align-items:center}
+.name{font-weight:500;font-size:1rem;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.name.empty{color:var(--ink-3);font-weight:300}
+.name.swap{animation:swap .6s cubic-bezier(.16,1,.3,1)}
+@keyframes swap{from{transform:translateY(40%);opacity:0;filter:blur(3px)}to{transform:none;opacity:1;filter:none}}
+.count{text-align:right;font-weight:500;font-size:1.25rem;line-height:1}
+.count small{display:block;font-size:.68rem;color:var(--ink-3);font-weight:300;margin-top:2px}
+.meter{grid-column:3/5;height:4px;margin-top:8px;border-radius:2px;background:rgba(200,16,46,.1);overflow:hidden}
+.meter i{display:block;height:100%;border-radius:2px;background:var(--red);transition:width .9s cubic-bezier(.16,1,.3,1)}
+.slot[data-rank="2"] .meter i{background:#e0566b}.slot[data-rank="3"] .meter i{background:#ef93a1}
+.tie{padding:0 7px;border-radius:999px;background:var(--rose);color:var(--red-ink);font-size:.68rem;font-weight:500}
+
+/* ballot */
+.search{display:flex;align-items:center;gap:10px;padding:0 16px;border-radius:16px}
+.search svg{width:18px;height:18px;color:var(--ink-3);flex:none}
+.search input{flex:1;min-width:0;background:none;border:0;outline:0;padding:13px 0;caret-color:var(--red)}
+.search input::placeholder{color:var(--ink-3);opacity:1;font-weight:300}
+.list-c{padding:6px;display:grid}
+.cand{appearance:none;width:100%;text-align:left;border:0;background:transparent;border-radius:16px;padding:10px 12px;display:flex;gap:12px;align-items:center;cursor:pointer;transition:background .2s}
+.cand+.cand{box-shadow:0 -1px 0 var(--line)}
+.cand:hover{background:var(--bg)}
+.cand[aria-pressed="true"]{background:var(--rose-2);box-shadow:0 0 0 1.5px var(--red)}
+.cand[aria-pressed="true"]+.cand{box-shadow:none}
+.cand .txt{flex:1;min-width:0;line-height:1.3}
+.cand .nm{font-weight:500}
+.cand .meta{font-size:.8rem;color:var(--ink-3);font-weight:300}
+.radio{width:24px;height:24px;border-radius:50%;box-shadow:inset 0 0 0 1.5px rgba(36,22,26,.2);display:grid;place-items:center;color:#fff;flex:none;transition:background .2s,box-shadow .2s}
+.radio svg{width:14px;height:14px;transform:scale(0);transition:transform .25s cubic-bezier(.34,1.56,.64,1)}
+.cand[aria-pressed="true"] .radio{background:var(--red);box-shadow:none}
+.cand[aria-pressed="true"] .radio svg{transform:scale(1)}
+.empty-search{padding:20px;text-align:center;color:var(--ink-2);font-weight:300}
+details.note{padding:14px 18px;border-radius:18px;font-size:.88rem}
+details.note summary{cursor:pointer;color:var(--ink-2)}
+details.note p{margin:8px 0 0;color:var(--ink-2);font-weight:300}
+
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:30;padding-bottom:calc(14px + env(safe-area-inset-bottom,0px));padding-top:24px;
+  background:linear-gradient(rgba(251,247,247,0),rgba(251,247,247,.95) 45%);transform:translateY(110%);transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.dock:not(.on){visibility:hidden;transition:transform .35s,visibility 0s .35s}
+.dock.on{transform:none}
+
+/* confirm sheet */
+.scrim{position:fixed;inset:0;z-index:40;background:rgba(36,22,26,.32);opacity:0;pointer-events:none;transition:opacity .25s}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:41;transform:translateY(105%);transition:transform .45s cubic-bezier(.16,1,.3,1)}
+.sheet:not(.on){visibility:hidden;transition:transform .45s,visibility 0s .45s}
+.sheet.on{transform:none}
+.sheet .wrap{padding-bottom:calc(14px + env(safe-area-inset-bottom,0px))}
+.sheet .card{text-align:center;justify-items:center;padding:26px 20px 20px;border-radius:24px;box-shadow:0 20px 40px -16px rgba(36,22,26,.28)}
+.sheet .row{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
+@media (min-width:700px){
+  .sheet{top:0;display:grid;place-items:center;pointer-events:none}
+  .sheet.on .wrap{pointer-events:auto}
+  .sheet .wrap{padding-bottom:0;max-width:420px}
+}
+
+/* results */
+.voted{display:flex;gap:14px;align-items:center;padding:16px 18px}
+.voted .ok{width:40px;height:40px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;flex:none;box-shadow:0 8px 18px -8px rgba(200,16,46,.7)}
+.voted .ok svg{width:20px;height:20px}
+.voted p{margin:0;line-height:1.35}.voted small{color:var(--ink-2);font-weight:300}
+.all{padding:8px 18px}
+.all h2{font-size:1.02rem;padding:10px 0 4px}
+.all ol{list-style:none;margin:0;padding:0}
+.all li{display:grid;grid-template-columns:26px 30px minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
+.all .pos{color:var(--ink-3);font-weight:300;text-align:center}
+.all li.top .pos{color:var(--red);font-weight:500}
+.all .nm2{line-height:1.3;min-width:0}.all .nm2 small{color:var(--ink-3);font-weight:300}
+.all .v{font-weight:500}
+.seats-c{padding:18px;display:grid;gap:12px}
+.seats-c h2{font-size:1.02rem}
+.seats{display:grid;grid-template-columns:repeat(auto-fill,minmax(32px,1fr));gap:6px}
+.seat-b{aspect-ratio:1;border-radius:50%;display:grid;place-items:center;font-size:.72rem;color:var(--ink-3);box-shadow:inset 0 0 0 1px var(--line);background:#fff}
+.seat-b.in{background:var(--red);color:#fff;box-shadow:none;font-weight:500}
+.pending{margin:0;font-size:.86rem;color:var(--ink-2);font-weight:300}
+.foot{text-align:center;color:var(--ink-3);font-size:.76rem;font-weight:300;margin:0}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,140%);z-index:50;background:rgba(36,22,26,.9);color:#fff;padding:10px 18px;border-radius:999px;font-size:.88rem;transition:transform .35s cubic-bezier(.16,1,.3,1);max-width:calc(100% - 32px);text-align:center}
+.toast:not(.on){visibility:hidden;transition:transform .35s,visibility 0s .35s}
+.toast.on{transform:translate(-50%,0)}
+.spin{width:18px;height:18px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:r .7s linear infinite}
+@keyframes r{to{transform:rotate(1turn)}}
+
+/* iPad / desktop: working column left, live board right */
+@media (min-width:760px){
+  .wrap{max-width:1040px}
+  .bar{padding:14px 16px 14px 26px}.brand h1{font-size:1.4rem}.brand p{font-size:.9rem}.turn{font-size:.9rem;padding:8px 16px}.turn b{font-size:1.2rem}
+  main{grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);align-items:start;gap:24px}
+  main>.notice,main>.foot{grid-column:1/-1}
+  .side{display:grid;gap:18px;position:sticky;top:96px}
+  .pad{padding:30px 28px;gap:20px}
+  h2{font-size:1.6rem}
+  .slot{grid-template-columns:34px 48px minmax(0,1fr) auto}.ph{width:48px;height:48px}.rank{font-size:1.9rem}.name{font-size:1.1rem}.count{font-size:1.5rem}
+  .board{padding:22px 22px 10px}.board-head h2{font-size:1.15rem}
+  .cand .nm{font-size:1.05rem}
+  .av.s30{width:34px;height:34px}
+}
+@media (max-width:759px){.side{display:contents}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <div class="bar card">
+      <div class="brand"><h1>เลือกหัวหน้าห้อง ค.6802</h1><p>ปี 2 เทอม 2</p></div>
+      <div class="turn" aria-live="polite"><b class="num" id="turnN">0/29</b> โหวตแล้ว</div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="app">
+  <div class="notice" id="demo" hidden>หน้าตัวอย่าง คะแนนเป็นข้อมูลจำลอง ยังไม่ได้เชื่อมฐานข้อมูลจริง</div>
+  <div class="notice warn" id="netwarn" hidden>ต่อเน็ตไม่ได้ คะแนนที่เห็นอาจไม่ล่าสุด กำลังลองเชื่อมใหม่</div>
+
+  <section id="v-signin" class="view" aria-labelledby="h-signin">
+    <div>
+      <form class="card pad" id="f-signin" novalidate>
+        <div>
+          <h2 id="h-signin">เลือกหัวหน้า รอง และเลขาคนใหม่</h2>
+          <p class="sub">เลือกได้ 1 คน คะแนนอันดับ 1, 2, 3 เป็นหัวหน้า รอง และเลขาตามลำดับ</p>
+        </div>
+        <div>
+          <label for="sid">รหัสนักศึกษาของคุณ</label>
+          <div class="field"><span class="pre num" aria-hidden="true">6840102</span><input id="sid" inputmode="numeric" autocomplete="off" maxlength="10" placeholder="•••" aria-describedby="sid-hint sid-err"></div>
+          <p class="hint" id="sid-hint">พิมพ์แค่ 3 ตัวท้ายก็ได้</p>
+          <p class="err" id="sid-err" hidden></p>
+        </div>
+        <div class="me" id="me" hidden></div>
+        <button class="btn" id="b-signin" type="submit" disabled>เข้าสู่บัตรเลือกตั้ง</button>
+      </form>
+    </div>
+  </section>
+
+  <section id="v-ballot" class="view" hidden aria-labelledby="h-ballot">
+    <div>
+      <div style="padding:4px 4px 0">
+        <h2 id="h-ballot">เลือก 1 คน</h2>
+        <p class="sub">ผู้มีสิทธิ์ 22 คน</p>
+      </div>
+      <div class="search card"><svg><use href="#i-search"/></svg><input id="q" type="search" placeholder="ค้นชื่อหรือเลขที่" aria-label="ค้นชื่อหรือเลขที่" autocomplete="off"></div>
+      <div class="list-c card" id="grid" role="group" aria-label="รายชื่อผู้มีสิทธิ์"></div>
+      <details class="note card"><summary>ทำไมบางคนไม่มีชื่อ</summary><p id="served-p"></p></details>
+      <button class="link" id="b-out" type="button">ไม่ใช่ฉัน เปลี่ยนรหัส</button>
+    </div>
+  </section>
+
+  <section id="v-results" class="view" hidden aria-labelledby="h-results">
+    <div>
+      <div class="voted card" id="voted"></div>
+      <div class="all card"><h2 id="h-results">คะแนนทุกคน</h2><ol id="list"></ol></div>
+      <button class="link" id="b-out2" type="button">ออกจากระบบ</button>
+    </div>
+  </section>
+
+  <aside class="side" aria-label="ผลคะแนนสด">
+    <div class="board card" id="board"></div>
+    <div class="seats-c card" id="seats-c" hidden>
+      <div><h2>โหวตแล้ว</h2><p class="sub" style="margin:2px 0 0">ตามเลขที่ หน้านี้ไม่แสดงว่าใครเลือกใคร</p></div>
+      <div class="seats" id="seats"></div>
+      <p class="pending" id="pending"></p>
+    </div>
+  </aside>
+  <p class="foot">ห้อง ค.6802 · ผลอัปเดตสดอัตโนมัติ</p>
+</main>
+
+<div class="dock" id="dock" aria-hidden="true"><div class="wrap"><button class="btn" id="b-pick" type="button" tabindex="-1">เลือกคนนี้</button></div></div>
+<div class="scrim" id="scrim"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="h-confirm" aria-hidden="true"><div class="wrap"><div class="card" id="sheet-body"></div></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="firebase-config.js"></script>
+<script>
+(function(){
+"use strict";
+/* ---------- roster: ค.6802 (29 คน) ---------- */
+var ROSTER=[
+ [1,"101","กมลชนก","สุริฉาย",1],[2,"102","กรวิชญ์","ระหารสิม"],[3,"103","กัลยาภรณ์","ขันฮูม",1],[4,"104","ธนิดา","สีเสา",1],
+ [5,"105","จตุรภัทร","พรมบุบผา",1],[6,"106","จิตติพัฒน์","ทักษะวิเรขะพันธ์",1],[7,"107","ชญานิน","ทิพพศรี"],[8,"108","ชยุต","จำปาวัตร์"],
+ [9,"109","ณัชชา","ผิวแดง"],[10,"110","ทรายทอง","วรรณหอม"],[11,"111","ธนัญชนก","พลเยี่ยม"],[12,"113","นัฐชญา","ขอสูงเนิน"],
+ [13,"114","นารีรัตน์","พลพันธ์",1],[14,"116","ปริยาภรณ์","สมิงรัมย์"],[15,"117","ปัณณพร","บุตรมาตย์"],[16,"118","พริมรดา","คงใจมั่น"],
+ [17,"119","พาสุข","แก้วใสย์"],[18,"120","พิยดา","ศิลาชนพฤกษ์",1],[19,"121","ภัควัฒน์","คำโอ"],[20,"122","ภูบดินทร์","ตาระพันธ์"],
+ [21,"123","เมธี","เตี่ยวิวัฒน์"],[22,"124","คณิศร","พรมศรี"],[23,"125","ลภัสส์ธร","วราเสฏฐานนน์"],[24,"126","วนัชพร","ใจธรรม"],
+ [25,"127","วัลลภา","พรหมเจดีย์"],[26,"128","ศุภรักษ์","เลิศพุทธิตระการ"],[27,"129","สุวรรณภูมิ","พลหล้า"],[28,"130","อรนภา","สุขสมบูรณ์"],
+ [29,"132","ญาทิตา","จันทิหล้า"]
+].map(function(r){return {seat:r[0],id:"6840102"+r[1],first:r[2],last:r[3],served:!!r[4]};});
+var BY={};ROSTER.forEach(function(p){BY[p.id]=p;});
+var CANDS=ROSTER.filter(function(p){return !p.served;});
+var ROLES=["หัวหน้าห้อง","รองหัวหน้า","เลขา"];
+var $=function(id){return document.getElementById(id);};
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function ini(p){return p.first.replace(/^[เแโใไ]/,"").charAt(0);}
+function av(p,cls){return '<span class="av '+(cls||'')+'" aria-hidden="true">'+esc(ini(p))+'<img src="'+p.id+'.jpg" alt="" onerror="this.remove()"></span>';}
+
+/* ---------- backend: Firestore when configured, in-memory demo otherwise ---------- */
+var CFG=window.FIREBASE_CONFIG,Backend;
+function demoBackend(){
+  var votes={},open=true,cb=null;
+  [["102","121"],["107","126"],["108","121"],["109","126"],["110","116"],["111","121"],["113","126"],["101","121"],["103","116"],["104","108"],["117","121"],["118","116"],["119","126"],["120","108"]]
+    .forEach(function(v){votes["6840102"+v[0]]="6840102"+v[1];});
+  var pool=["6840102121","6840102126","6840102116","6840102108","6840102123","6840102129"];
+  function emit(){if(cb)cb({votes:Object.assign({},votes),open:open,online:true});}
+  setInterval(function(){
+    var left=ROSTER.filter(function(p){return !votes[p.id]&&p.id!==(window.__me||"");});
+    if(left.length<4)return;votes[left[Math.floor(Math.random()*left.length)].id]=pool[Math.floor(Math.random()*pool.length)];emit();
+  },6000);
+  return {demo:true,
+    subscribe:function(f){cb=f;emit();},
+    cast:function(voter,cand){return new Promise(function(res,rej){setTimeout(function(){
+      if(votes[voter])return rej({code:"ALREADY"});votes[voter]=cand;emit();res();},500);});}};
+}
+function fireBackend(){
+  var cb=null,state={votes:{},open:true,online:true},api={};
+  var V="https://www.gstatic.com/firebasejs/10.14.1/";
+  function emit(){if(cb)cb({votes:Object.assign({},state.votes),open:state.open,online:state.online});}
+  var ready=Promise.all([import(V+"firebase-app.js"),import(V+"firebase-firestore.js")]).then(function(m){
+    var app=m[0].initializeApp(CFG),fs=m[1],db=fs.getFirestore(app);api.fs=fs;api.db=db;
+    fs.onSnapshot(fs.collection(db,"votes"),function(snap){
+      var v={};snap.forEach(function(d){var c=d.data().cand;if(c)v[d.id]=c;});state.votes=v;state.online=true;emit();
+    },function(){state.online=false;emit();});
+    fs.onSnapshot(fs.doc(db,"config","election"),function(s){state.open=!s.exists()||s.data().open!==false;emit();},function(){});
+  });
+  api.subscribe=function(f){cb=f;emit();};
+  api.cast=function(voter,cand){
+    return ready.then(function(){
+      return api.fs.setDoc(api.fs.doc(api.db,"votes",voter),{cand:cand,at:api.fs.serverTimestamp()});
+    }).catch(function(e){
+      if(e&&e.code==="permission-denied")throw {code:state.votes[voter]?"ALREADY":(state.open?"DENIED":"CLOSED")};
+      throw {code:"NET"};
+    });
+  };
+  return api;
+}
+Backend=CFG&&CFG.projectId?fireBackend():demoBackend();
+if(Backend.demo)$("demo").hidden=false;
+
+/* ---------- state ---------- */
+var S={votes:{},open:true,online:true},me=null,pick=null,view="signin",lastTop=["","",""];
+try{var sv=localStorage.getItem("c6802-sid");if(sv&&BY[sv])me=sv;}catch(e){}
+function tally(){var t={};Object.keys(S.votes).forEach(function(v){var c=S.votes[v];t[c]=(t[c]||0)+1;});return t;}
+function ranked(){var t=tally();return CANDS.map(function(p){return {p:p,n:t[p.id]||0};}).sort(function(a,b){return b.n-a.n||a.p.seat-b.p.seat;});}
+function nVoters(){return Object.keys(S.votes).length;}
+
+/* ---------- live top 3 ---------- */
+function boardHTML(){
+  var r=ranked(),mx=Math.max(r[0].n,1),h='<div class="board-head"><h2>อันดับตอนนี้</h2><span class="live'+(S.online?'':' off')+'"><i></i>'+(S.online?'สด':'ออฟไลน์')+'</span></div>';
+  for(var i=0;i<3;i++){
+    var e=r[i],has=e.n>0,tie=has&&((r[i-1]&&r[i-1].n===e.n)||(r[i+1]&&r[i+1].n===e.n)),key=has?e.p.id:"",swap=key&&lastTop[i]&&lastTop[i]!==key;
+    h+='<div class="slot" data-rank="'+(i+1)+'"><span class="rank num" aria-hidden="true">'+(i+1)+'</span>'+
+      '<span class="ph" aria-hidden="true">'+(has?av(e.p,'s40'):'')+'</span>'+
+      '<div class="who"><div class="role">'+ROLES[i]+(tie?'<span class="tie">คะแนนเท่ากัน</span>':'')+'</div>'+
+      '<div class="name'+(has?'':' empty')+(swap?' swap':'')+'">'+(has?esc(e.p.first)+' '+esc(e.p.last):'ยังไม่มีคะแนน')+'</div></div>'+
+      '<div class="count num">'+(has?e.n:0)+'<small>เสียง</small></div>'+
+      '<div class="meter" aria-hidden="true"><i style="width:'+(has?Math.round(e.n/mx*100):0)+'%"></i></div></div>';
+  }
+  lastTop=[0,1,2].map(function(i){return r[i].n>0?r[i].p.id:"";});
+  return h;
+}
+
+/* ---------- views ---------- */
+function show(v){
+  if(!S.open&&v!=="results")v="results";
+  view=v;["signin","ballot","results"].forEach(function(n){$("v-"+n).hidden=n!==v;});
+  dock(false);render();window.scrollTo({top:0});
+}
+function render(){
+  $("turnN").textContent=nVoters()+"/29";
+  $("netwarn").hidden=S.online;
+  $("board").innerHTML=boardHTML();
+  var showSeats=view==="results";$("seats-c").hidden=!showSeats;
+  if(showSeats)renderResults();
+}
+function renderResults(){
+  var mp=me&&BY[me],mine=me&&S.votes[me]?BY[S.votes[me]]:null,hv=me&&S.votes[me];
+  if(!S.open){
+    $("voted").innerHTML='<span class="ok"><svg><use href="#i-check"/></svg></span><p>ปิดรับโหวตแล้ว<br><small>นี่คือผลสุดท้าย</small></p>';
+  }else if(hv){
+    $("voted").innerHTML='<span class="ok"><svg><use href="#i-check"/></svg></span><p>'+esc(mp.first)+' โหวตแล้ว<br><small>คุณเลือก '+esc(mine.first)+' '+esc(mine.last)+' · เห็นแค่คุณ</small></p>';
+  }else{
+    $("voted").innerHTML='<p>ยังไม่ได้โหวต<br><small>เลือกรหัสของคุณเพื่อโหวต</small></p>';
+  }
+  var r=ranked();
+  $("list").innerHTML=r.map(function(e,i){
+    return '<li class="'+(i<3&&e.n>0?'top':'')+'"><span class="pos num">'+(i+1)+'</span>'+av(e.p,'s30')+'<span class="nm2">'+esc(e.p.first)+' <small>'+esc(e.p.last)+'</small></span><span class="v num">'+e.n+'</span></li>';
+  }).join("");
+  $("seats").innerHTML=ROSTER.map(function(p){return '<span class="seat-b num'+(S.votes[p.id]?' in':'')+'" title="เลขที่ '+p.seat+'">'+p.seat+'</span>';}).join("");
+  var pend=ROSTER.filter(function(p){return !S.votes[p.id];});
+  $("pending").textContent=pend.length?"ยังไม่โหวต "+pend.length+" คน: "+pend.map(function(p){return p.first;}).join(" · "):"โหวตครบทั้งห้องแล้ว";
+  $("b-out2").hidden=!me;
+}
+
+/* sign-in */
+function parseSid(v){v=(v||"").replace(/\D/g,"");if(v.length===3)v="6840102"+v;return v;}
+$("sid").addEventListener("input",function(){
+  var v=this.value.replace(/\D/g,"");this.value=v;var id=parseSid(v),p=BY[id];$("sid-err").hidden=true;
+  if(p){$("me").hidden=false;$("me").innerHTML=av(p)+'<p>'+esc(p.first)+' '+esc(p.last)+'<br><small>เลขที่ '+p.seat+'</small></p>';}else $("me").hidden=true;
+  $("b-signin").disabled=!p;
+  if(!p&&(v.length===3||v.length===10)){$("sid-err").hidden=false;$("sid-err").textContent="ไม่พบรหัสนี้ในห้อง ค.6802 ลองเช็กตัวเลขอีกครั้ง";}
+});
+$("f-signin").addEventListener("submit",function(e){
+  e.preventDefault();var id=parseSid($("sid").value);if(!BY[id])return;
+  me=id;window.__me=id;try{localStorage.setItem("c6802-sid",id);}catch(x){}
+  pick=null;if(S.votes[id]){show("results");toast("รหัสนี้โหวตไปแล้ว");}else show("ballot");
+});
+function logout(){me=null;window.__me="";pick=null;try{localStorage.removeItem("c6802-sid");}catch(e){}$("sid").value="";$("me").hidden=true;$("b-signin").disabled=true;show("signin");}
+$("b-out").onclick=logout;$("b-out2").onclick=logout;
+
+/* ballot */
+function renderGrid(){
+  var q=$("q").value.trim(),list=CANDS.filter(function(p){return !q||(p.first+" "+p.last).indexOf(q)>-1||String(p.seat)===q;});
+  $("grid").innerHTML=list.length?list.map(function(p){
+    return '<button type="button" class="cand" data-id="'+p.id+'" aria-pressed="'+(pick===p.id)+'">'+av(p)+
+      '<span class="txt"><span class="nm">'+esc(p.first)+' '+esc(p.last)+'</span><br><span class="meta num">เลขที่ '+p.seat+'</span></span>'+
+      '<span class="radio" aria-hidden="true"><svg><use href="#i-check"/></svg></span></button>';
+  }).join(""):'<div class="empty-search">ไม่เจอ "'+esc(q)+'" ในรายชื่อผู้มีสิทธิ์</div>';
+}
+$("served-p").textContent="ห้องเราเปลี่ยนหัวหน้าทุกเทอม คนที่เคยเป็นหัวหน้า รอง หรือเลขาแล้วจะโหวตได้ แต่ไม่มีชื่อให้เลือก: "+ROSTER.filter(function(p){return p.served;}).map(function(p){return p.first;}).join(", ");
+$("q").addEventListener("input",renderGrid);
+$("grid").addEventListener("click",function(e){
+  var b=e.target.closest(".cand");if(!b)return;var id=b.dataset.id;pick=pick===id?null:id;
+  Array.prototype.forEach.call($("grid").querySelectorAll(".cand"),function(c){c.setAttribute("aria-pressed",c.dataset.id===pick);});
+  dock(!!pick);
+});
+function dock(on){$("dock").classList.toggle("on",on);$("dock").setAttribute("aria-hidden",!on);$("b-pick").tabIndex=on?0:-1;if(on)$("b-pick").textContent="เลือก "+BY[pick].first;}
+$("b-pick").onclick=openSheet;
+var lastFocus=null,sending=false;
+function openSheet(){
+  var p=BY[pick];lastFocus=document.activeElement;
+  $("sheet-body").innerHTML=av(p,'s68')+'<div><h2 id="h-confirm">'+esc(p.first)+' '+esc(p.last)+'</h2><p class="sub" style="margin:2px 0 0">ยืนยันแล้วเปลี่ยนไม่ได้</p></div><p class="err" id="cast-err" hidden></p>'+
+    '<div class="row"><button class="btn ghost" id="b-no" type="button">ยกเลิก</button><button class="btn" id="b-yes" type="button">ยืนยันโหวต</button></div>';
+  dock(false);$("scrim").classList.add("on");$("sheet").classList.add("on");$("sheet").setAttribute("aria-hidden","false");
+  $("b-no").onclick=closeSheet;$("b-yes").onclick=cast;setTimeout(function(){$("b-yes").focus();},50);
+}
+function closeSheet(){if(sending)return;if(pick&&view==="ballot")dock(true);$("scrim").classList.remove("on");$("sheet").classList.remove("on");$("sheet").setAttribute("aria-hidden","true");if(lastFocus&&lastFocus.focus)lastFocus.focus();}
+$("scrim").onclick=closeSheet;
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&$("sheet").classList.contains("on"))closeSheet();});
+function cast(){
+  if(sending)return;sending=true;var b=$("b-yes");b.disabled=true;$("b-no").disabled=true;b.innerHTML='<span class="spin"></span>กำลังส่ง';
+  Backend.cast(me,pick).then(function(){
+    sending=false;closeSheet();show("results");toast("โหวตเรียบร้อย ขอบคุณครับ");
+  }).catch(function(e){
+    sending=false;var c=e&&e.code;
+    if(c==="ALREADY"){closeSheet();show("results");toast("รหัสนี้โหวตไปแล้ว");return;}
+    if(c==="CLOSED"){closeSheet();show("results");toast("ปิดรับโหวตแล้ว");return;}
+    $("cast-err").hidden=false;$("cast-err").textContent=c==="NET"?"ส่งไม่สำเร็จ เช็กเน็ตแล้วกดยืนยันอีกครั้ง":"ระบบไม่รับโหวตนี้ ลองใหม่อีกครั้ง หรือแจ้งผู้ดูแล";
+    b.disabled=false;$("b-no").disabled=false;b.textContent="ยืนยันโหวต";
+  });
+}
+
+var tt;function toast(t){var el=$("toast");el.textContent=t;el.classList.add("on");clearTimeout(tt);tt=setTimeout(function(){el.classList.remove("on");},2600);}
+
+/* live updates */
+var first=true;
+Backend.subscribe(function(s){
+  var wasOpen=S.open;S.votes=s.votes;S.open=s.open;S.online=s.online;
+  if(first){first=false;renderGrid();show(me?(S.votes[me]||!S.open?"results":"ballot"):(S.open?"signin":"results"));return;}
+  if(wasOpen&&!S.open){show("results");toast("ปิดรับโหวตแล้ว");return;}
+  render();
+});
+})();
+</script>
+</body>
+</html>
