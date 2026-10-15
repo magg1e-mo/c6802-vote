@@ -309,7 +309,7 @@ body.pre .lang2{display:inline-block}
     <div>
       <div style="padding:4px 4px 0">
         <h2 id="h-ballot">เลือก 1 คน</h2>
-        <p class="sub" id="ballot-sub">ผู้มีสิทธิ์ 22 คน</p>
+        <p class="sub" id="ballot-sub">ผู้มีสิทธิ์ 20 คน</p>
       </div>
       <div class="search card" id="q-wrap"><svg><use href="#i-search"/></svg><input id="q" type="search" placeholder="ค้นชื่อหรือเลขที่" data-tp="search" data-ta="search" aria-label="ค้นชื่อหรือเลขที่" autocomplete="off"></div>
       <div class="list-c card" id="grid" role="group" data-ta="gridaria" aria-label="รายชื่อผู้มีสิทธิ์"></div>
@@ -353,8 +353,8 @@ var ROSTER=[
  [9,"109","ณัชชา","ผิวแดง"],[10,"110","ทรายทอง","วรรณหอม"],[11,"111","ธนัญชนก","พลเยี่ยม"],[12,"113","นัฐชญา","ขอสูงเนิน"],
  [13,"114","นารีรัตน์","พลพันธ์",1],[14,"116","ปริยาภรณ์","สมิงรัมย์"],[15,"117","ปัณณพร","บุตรมาตย์"],[16,"118","พริมรดา","คงใจมั่น"],
  [17,"119","พาสุข","แก้วใสย์"],[18,"120","พิยดา","ศิลาชนพฤกษ์",1],[19,"121","ภัควัฒน์","คำโอ"],[20,"122","ภูบดินทร์","ตาระพันธ์"],
- [21,"123","เมธี","เตี่ยวิวัฒน์"],[22,"124","คณิศร","พรมศรี"],[23,"125","ลภัสส์ธร","วราเสฏฐานนน์"],[24,"126","วนัชพร","ใจธรรม"],
- [25,"127","วัลลภา","พรหมเจดีย์"],[26,"128","ศุภรักษ์","เลิศพุทธิตระการ"],[27,"129","สุวรรณภูมิ","พลหล้า"],[28,"130","อรนภา","สุขสมบูรณ์"],
+ [21,"123","เมธี","เตี่ยวิวัฒน์"],[22,"124","คณิศร","พรมศรี",1],[23,"125","ลภัสส์ธร","วราเสฏฐานนน์"],[24,"126","วนัชพร","ใจธรรม"],
+ [25,"127","วัลลภา","พรหมเจดีย์",1],[26,"128","ศุภรักษ์","เลิศพุทธิตระการ"],[27,"129","สุวรรณภูมิ","พลหล้า"],[28,"130","อรนภา","สุขสมบูรณ์"],
  [29,"132","ญาทิตา","จันทิหล้า"]
 ].map(function(r){return {seat:r[0],id:"6840102"+r[1],first:r[2],last:r[3],served:!!r[4]};});
 var BY={};ROSTER.forEach(function(p){BY[p.id]=p;});
@@ -657,7 +657,7 @@ function ballotList(){
 function renderGrid(){
   var r2=inR2(),base=ballotList();
   $("h-ballot").textContent=r2?tr("รอบสอง · เลือก 1 คน","Round 2 · Pick 1"):tr("เลือก 1 คน","Pick 1");
-  $("ballot-sub").textContent=r2?tr("เลือก 1 ใน "+base.length+" คนที่คะแนนเสมอกัน","Pick 1 of the "+base.length+" tied people"):tr("ผู้มีสิทธิ์ 22 คน","22 eligible people");
+  $("ballot-sub").textContent=r2?tr("เลือก 1 ใน "+base.length+" คนที่คะแนนเสมอกัน","Pick 1 of the "+base.length+" tied people"):tr("ผู้มีสิทธิ์ "+base.length+" คน",base.length+" eligible people");
   $("q-wrap").hidden=base.length<=6;$("served-d").hidden=r2;
   var q=$("q").value.trim(),list=base.filter(function(p){return !q||(p.first+" "+p.last).indexOf(q)>-1||String(p.seat)===q;});
   $("grid").innerHTML=list.length?list.map(function(p){
