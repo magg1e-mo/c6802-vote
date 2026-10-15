@@ -576,7 +576,7 @@ setInterval(tick,1000);
 var VIEWS=["pre","signin","ballot","results","final"];
 function show(v){
   view=v;VIEWS.forEach(function(n){$("v-"+n).hidden=n!==v;});
-  dock(false);render();window.scrollTo({top:0});
+  dock(false);if(v==="ballot")renderGrid();render();window.scrollTo({top:0});
 }
 function render(){
   var k=key(),fin=k.indexOf("closed")===0;
