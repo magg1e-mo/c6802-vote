@@ -357,7 +357,7 @@ var ROSTER=[
 ].map(function(r){return {seat:r[0],id:"6840102"+r[1],first:r[2],last:r[3],served:!!r[4]};});
 var BY={};ROSTER.forEach(function(p){BY[p.id]=p;});
 var CANDS=ROSTER.filter(function(p){return !p.served;});
-var LANG="th";try{var sl=localStorage.getItem("c6802-lang");if(sl==="en"||sl==="th")LANG=sl;}catch(e){}
+var LANG="en";try{var sl=localStorage.getItem("c6802-lang");if(sl==="en"||sl==="th")LANG=sl;}catch(e){}
 function tr(a,b){return LANG==="en"?b:a;}
 var ROLES=[];function setRoles(){ROLES[0]=tr("หัวหน้าห้อง","Class head");ROLES[1]=tr("รองหัวหน้า","Deputy");ROLES[2]=tr("เลขา","Secretary");}setRoles();
 var EN={brand:"Class Head Election · 6802",term:"Year 2 · Semester 2",demo:"Preview page. Scores are sample data and not connected to the real database.",netwarn:"Can't reach the network. Scores may be out of date. Retrying…",prek:"Voting opens in",predate:"Fri 16 Oct · 09:00",prehint1:"Have your student ID ready",prehint2:"One person, one vote · Closes at 15:00",sidlabel:"Your student ID",sidhint:"Just the last 3 digits is fine",signinbtn:"Go to ballot",served:"Why are some names missing?",bout:"Not me? Change ID",bout2:"Sign out",allscores:"All scores",seatsh:"Voted",seatssub:"By seat number. This page doesn't show who voted for whom.",foot0:"Class 6802 · Results update live",pickbtn:"Pick this person",search:"Search name or number",gridaria:"Eligible candidates",sidearia:"Live results",finalaria:"Election results",preclock:"Time left until voting opens"};
