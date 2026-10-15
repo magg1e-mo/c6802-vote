@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#fbf7f7">
+<meta name="theme-color" content="#fbf7f7" id="tc">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>เลือกหัวหน้าห้อง ค.6802</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@200;300;400;500;600&display=swap">
 <style>
 /* Calm red-white ballot. Solid white cards on a warm white ground, one deep red, Kanit only. */
 :root{
@@ -166,6 +166,73 @@ details.note p{margin:8px 0 0;color:var(--ink-2);font-weight:300}
 .spin{width:18px;height:18px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:r .7s linear infinite}
 @keyframes r{to{transform:rotate(1turn)}}
 
+
+/* schedule: countdown, time left, final board */
+.clock{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.clock div{display:grid;gap:4px;text-align:center;font-size:.76rem;color:var(--ink-3);font-weight:300}
+.clock b{display:block;padding:14px 0 10px;border-radius:18px;background:var(--bg);border:1px solid rgba(36,22,26,.06);font-weight:300;font-size:3.1rem;line-height:1;color:var(--red);font-variant-numeric:tabular-nums}
+.cd{padding:24px 18px 20px;display:grid;gap:14px;text-align:center}
+.cd h2{font-size:1.25rem}
+.rules{padding:18px;display:grid;gap:12px}
+.rules h2{font-size:1.02rem}
+.rules ol{margin:0;padding:0;list-style:none;display:grid;gap:10px;font-size:.92rem}
+.rules li{display:flex;gap:12px;align-items:baseline}
+.rules li b{font-weight:500;color:var(--red);width:18px;flex:none}
+.faces{display:flex;flex-wrap:wrap;gap:8px}
+.tl{padding:16px 18px;display:grid;gap:10px}
+.tl .row1{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.tl h2{font-size:1rem}
+.tl .t{font-weight:500;font-size:1.6rem;line-height:1;color:var(--red);font-variant-numeric:tabular-nums}
+.tl .bar2{height:6px;border-radius:3px;background:rgba(200,16,46,.1);overflow:hidden}
+.tl .bar2 i{display:block;height:100%;border-radius:3px;background:var(--red)}
+.tl p{margin:0;color:var(--ink-3);font-size:.8rem;font-weight:300}
+.fin-h{display:grid;gap:14px}
+.win{padding:26px 20px 22px;display:grid;justify-items:center;gap:12px;text-align:center;border-radius:24px}
+.win .pill{padding:4px 14px;border-radius:999px;background:var(--red);color:#fff;font-size:.82rem;font-weight:500}
+.win .av{width:104px;height:104px;font-size:2.4rem;box-shadow:0 0 0 3px #fff,0 0 0 4.5px rgba(200,16,46,.55)}
+.win h3{margin:0;font-weight:500;font-size:1.6rem;line-height:1.25}
+.win p{margin:2px 0 0;color:var(--ink-2);font-weight:300}.win p b{font-weight:500;color:var(--ink)}
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.mini{padding:18px 12px 16px;display:grid;justify-items:center;gap:10px;text-align:center;min-width:0}
+.mini .r{font-size:.82rem;font-weight:500;color:var(--red-ink)}
+.mini .av{width:68px;height:68px;font-size:1.6rem;box-shadow:0 0 0 3px #fff,0 0 0 4.5px rgba(200,16,46,.55)}
+.mini .n1{font-weight:500;line-height:1.3}
+.mini .n2{color:var(--ink-2);font-size:.82rem;font-weight:300}.mini .n2 b{font-weight:500;color:var(--ink)}
+.mini.cont{background:var(--rose-2);border-color:rgba(200,16,46,.28)}
+.mini.cont .faces{justify-content:center;gap:6px}
+.mini.cont .av{width:44px;height:44px;font-size:1rem;box-shadow:0 0 0 2px #fff,0 0 0 3.5px rgba(200,16,46,.55)}
+.info{padding:20px 18px;display:grid;gap:14px;border-color:rgba(200,16,46,.28)}
+.info h2{font-size:1.1rem}.info p{margin:0;color:var(--ink-2);font-size:.9rem;font-weight:300}
+.tagx{padding:0 7px;border-radius:999px;background:var(--rose);color:var(--red-ink);font-size:.68rem;font-weight:500;margin-left:6px}
+.all .bar3{grid-column:3/5;height:4px;border-radius:2px;background:rgba(36,22,26,.06);overflow:hidden}
+.all .bar3 i{display:block;height:100%;border-radius:2px}
+body.fin main{grid-template-columns:minmax(0,1fr);max-width:720px}
+/* หน้านับถอยหลัง: แดงทั้งหน้า ตัวเลขขาวเลื่อนแนวตั้ง */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+body.pre{background:var(--red)}
+body.pre .top,body.pre .notice,body.pre .foot{display:none}
+body.pre main{max-width:none;padding:0;min-height:100vh;min-height:100svh;display:grid;place-items:center}
+body.pre #v-pre{width:100%}
+.rw{display:grid;justify-items:center;gap:clamp(18px,3.4vw,40px);text-align:center;color:#fff;padding:0 12px}
+.rk{margin:0;font-size:clamp(1rem,2.6vw,1.5rem);font-weight:300;letter-spacing:.14em;color:rgba(255,255,255,.86)}
+.redclock{display:flex;justify-content:center;align-items:flex-start;color:#fff;font-weight:600;font-size:clamp(3rem,16vw,9.5rem);line-height:1.1;font-variant-numeric:tabular-nums}
+.rd{width:.66em;height:1.1em;overflow:hidden;text-align:center;-webkit-mask-image:linear-gradient(transparent 0,#000 14%,#000 86%,transparent 100%);mask-image:linear-gradient(transparent 0,#000 14%,#000 86%,transparent 100%)}
+.rd>div>span{display:block;height:1.1em;line-height:1.1em}
+.rs2{width:.3em;height:1.1em;line-height:1.04em;text-align:center;opacity:.5}
+@keyframes rollA{from{transform:translateY(-1.1em)}to{transform:none}}
+@keyframes rollB{from{transform:translateY(-1.1em)}to{transform:none}}
+.ra{animation:rollA .75s cubic-bezier(.22,.8,.2,1) both}
+.rb{animation:rollB .75s cubic-bezier(.22,.8,.2,1) both}
+.rm{display:grid;gap:4px;justify-items:center}
+.rm p{margin:0}
+.rdate{font-size:clamp(1.05rem,2.6vw,1.6rem);font-weight:400}
+.rhint{font-size:clamp(.88rem,2.1vw,1.25rem);font-weight:300;line-height:1.6;color:rgba(255,255,255,.86)}
+.lang{appearance:none;border:1px solid var(--line);background:#fff;color:var(--ink-2);font:500 .8rem/1 var(--font);border-radius:999px;min-height:36px;min-width:44px;padding:0 12px;cursor:pointer}
+.lang2{display:none;position:fixed;top:calc(12px + env(safe-area-inset-top,0px));right:max(14px,env(safe-area-inset-right,0px));z-index:30;background:transparent;color:#fff;border-color:rgba(255,255,255,.55)}
+body.pre .lang2{display:inline-block}
+@media (max-width:759px){.clock b{font-size:3.1rem}}
+@media (min-width:760px){.clock b{font-size:4.4rem}}
+
 /* iPad / desktop: working column left, live board right */
 @media (min-width:760px){
   .wrap{max-width:1040px}
@@ -193,31 +260,45 @@ details.note p{margin:8px 0 0;color:var(--ink-2);font-weight:300}
 <header class="top">
   <div class="wrap">
     <div class="bar card">
-      <div class="brand"><h1>เลือกหัวหน้าห้อง ค.6802</h1><p>ปี 2 เทอม 2</p></div>
-      <div class="turn" aria-live="polite"><b class="num" id="turnN">0/29</b> โหวตแล้ว</div>
+      <div class="brand"><h1 data-t="brand">เลือกหัวหน้าห้อง ค.6802</h1><p data-t="term">ปี 2 เทอม 2</p></div>
+      <div class="turn" id="turn" aria-live="polite"></div>
+      <button class="lang" id="lang" type="button"></button>
     </div>
   </div>
 </header>
+<button class="lang lang2" id="lang2" type="button"></button>
 
 <main class="wrap" id="app">
-  <div class="notice" id="demo" hidden>หน้าตัวอย่าง คะแนนเป็นข้อมูลจำลอง ยังไม่ได้เชื่อมฐานข้อมูลจริง</div>
-  <div class="notice warn" id="netwarn" hidden>ต่อเน็ตไม่ได้ คะแนนที่เห็นอาจไม่ล่าสุด กำลังลองเชื่อมใหม่</div>
+  <div class="notice" id="demo" data-t="demo" hidden>หน้าตัวอย่าง คะแนนเป็นข้อมูลจำลอง ยังไม่ได้เชื่อมฐานข้อมูลจริง</div>
+  <div class="notice warn" id="netwarn" data-t="netwarn" hidden>ต่อเน็ตไม่ได้ คะแนนที่เห็นอาจไม่ล่าสุด กำลังลองเชื่อมใหม่</div>
+
+  <div class="tl card" id="timeleft" hidden></div>
+
+  <section id="v-pre" class="view" hidden aria-labelledby="h-pre">
+    <div class="rw">
+      <h2 id="h-pre" class="rk" data-t="prek">เปิดโหวตใน</h2>
+      <div class="redclock" id="clock" role="timer" data-ta="preclock" aria-label="เวลาที่เหลือก่อนเปิดโหวต"></div>
+      <div class="rm"><p class="rdate" data-t="predate">ศุกร์ 16 ต.ค. · 09:00 น.</p><p class="rhint" data-t="prehint1">เตรียมรหัสนักศึกษาให้พร้อม</p><p class="rhint" data-t="prehint2">1 คน 1 เสียง · ปิดโหวต 15:00 น.</p></div>
+    </div>
+  </section>
+
+  <section id="v-final" class="view" hidden data-ta="finalaria" aria-label="ผลการเลือกตั้ง"><div id="final"></div></section>
 
   <section id="v-signin" class="view" aria-labelledby="h-signin">
     <div>
       <form class="card pad" id="f-signin" novalidate>
         <div>
           <h2 id="h-signin">เลือกหัวหน้า รอง และเลขาคนใหม่</h2>
-          <p class="sub">เลือกได้ 1 คน คะแนนอันดับ 1, 2, 3 เป็นหัวหน้า รอง และเลขาตามลำดับ</p>
+          <p class="sub" id="signin-sub">เลือกได้ 1 คน คะแนนอันดับ 1, 2, 3 เป็นหัวหน้า รอง และเลขาตามลำดับ</p>
         </div>
         <div>
-          <label for="sid">รหัสนักศึกษาของคุณ</label>
+          <label for="sid" data-t="sidlabel">รหัสนักศึกษาของคุณ</label>
           <div class="field"><span class="pre num" aria-hidden="true">6840102</span><input id="sid" inputmode="numeric" autocomplete="off" maxlength="10" placeholder="•••" aria-describedby="sid-hint sid-err"></div>
-          <p class="hint" id="sid-hint">พิมพ์แค่ 3 ตัวท้ายก็ได้</p>
+          <p class="hint" id="sid-hint" data-t="sidhint">พิมพ์แค่ 3 ตัวท้ายก็ได้</p>
           <p class="err" id="sid-err" hidden></p>
         </div>
         <div class="me" id="me" hidden></div>
-        <button class="btn" id="b-signin" type="submit" disabled>เข้าสู่บัตรเลือกตั้ง</button>
+        <button class="btn" id="b-signin" type="submit" data-t="signinbtn" disabled>เข้าสู่บัตรเลือกตั้ง</button>
       </form>
     </div>
   </section>
@@ -226,35 +307,35 @@ details.note p{margin:8px 0 0;color:var(--ink-2);font-weight:300}
     <div>
       <div style="padding:4px 4px 0">
         <h2 id="h-ballot">เลือก 1 คน</h2>
-        <p class="sub">ผู้มีสิทธิ์ 22 คน</p>
+        <p class="sub" id="ballot-sub">ผู้มีสิทธิ์ 22 คน</p>
       </div>
-      <div class="search card"><svg><use href="#i-search"/></svg><input id="q" type="search" placeholder="ค้นชื่อหรือเลขที่" aria-label="ค้นชื่อหรือเลขที่" autocomplete="off"></div>
-      <div class="list-c card" id="grid" role="group" aria-label="รายชื่อผู้มีสิทธิ์"></div>
-      <details class="note card"><summary>ทำไมบางคนไม่มีชื่อ</summary><p id="served-p"></p></details>
-      <button class="link" id="b-out" type="button">ไม่ใช่ฉัน เปลี่ยนรหัส</button>
+      <div class="search card" id="q-wrap"><svg><use href="#i-search"/></svg><input id="q" type="search" placeholder="ค้นชื่อหรือเลขที่" data-tp="search" data-ta="search" aria-label="ค้นชื่อหรือเลขที่" autocomplete="off"></div>
+      <div class="list-c card" id="grid" role="group" data-ta="gridaria" aria-label="รายชื่อผู้มีสิทธิ์"></div>
+      <details class="note card" id="served-d"><summary data-t="served">ทำไมบางคนไม่มีชื่อ</summary><p id="served-p"></p></details>
+      <button class="link" id="b-out" type="button" data-t="bout">ไม่ใช่ฉัน เปลี่ยนรหัส</button>
     </div>
   </section>
 
   <section id="v-results" class="view" hidden aria-labelledby="h-results">
     <div>
       <div class="voted card" id="voted"></div>
-      <div class="all card"><h2 id="h-results">คะแนนทุกคน</h2><ol id="list"></ol></div>
-      <button class="link" id="b-out2" type="button">ออกจากระบบ</button>
+      <div class="all card"><h2 id="h-results" data-t="allscores">คะแนนทุกคน</h2><ol id="list"></ol></div>
+      <button class="link" id="b-out2" type="button" data-t="bout2">ออกจากระบบ</button>
     </div>
   </section>
 
-  <aside class="side" aria-label="ผลคะแนนสด">
+  <aside class="side" id="side" data-ta="sidearia" aria-label="ผลคะแนนสด">
     <div class="board card" id="board"></div>
     <div class="seats-c card" id="seats-c" hidden>
-      <div><h2>โหวตแล้ว</h2><p class="sub" style="margin:2px 0 0">ตามเลขที่ หน้านี้ไม่แสดงว่าใครเลือกใคร</p></div>
+      <div><h2 data-t="seatsh">โหวตแล้ว</h2><p class="sub" style="margin:2px 0 0" data-t="seatssub">ตามเลขที่ หน้านี้ไม่แสดงว่าใครเลือกใคร</p></div>
       <div class="seats" id="seats"></div>
       <p class="pending" id="pending"></p>
     </div>
   </aside>
-  <p class="foot">ห้อง ค.6802 · ผลอัปเดตสดอัตโนมัติ</p>
+  <p class="foot" data-t="foot0">ห้อง ค.6802 · ผลอัปเดตสดอัตโนมัติ</p>
 </main>
 
-<div class="dock" id="dock" aria-hidden="true"><div class="wrap"><button class="btn" id="b-pick" type="button" tabindex="-1">เลือกคนนี้</button></div></div>
+<div class="dock" id="dock" aria-hidden="true"><div class="wrap"><button class="btn" id="b-pick" type="button" tabindex="-1" data-t="pickbtn">เลือกคนนี้</button></div></div>
 <div class="scrim" id="scrim"></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="h-confirm" aria-hidden="true"><div class="wrap"><div class="card" id="sheet-body"></div></div></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -276,106 +357,270 @@ var ROSTER=[
 ].map(function(r){return {seat:r[0],id:"6840102"+r[1],first:r[2],last:r[3],served:!!r[4]};});
 var BY={};ROSTER.forEach(function(p){BY[p.id]=p;});
 var CANDS=ROSTER.filter(function(p){return !p.served;});
-var ROLES=["หัวหน้าห้อง","รองหัวหน้า","เลขา"];
+var LANG="th";try{var sl=localStorage.getItem("c6802-lang");if(sl==="en"||sl==="th")LANG=sl;}catch(e){}
+function tr(a,b){return LANG==="en"?b:a;}
+var ROLES=[];function setRoles(){ROLES[0]=tr("หัวหน้าห้อง","Class head");ROLES[1]=tr("รองหัวหน้า","Deputy");ROLES[2]=tr("เลขา","Secretary");}setRoles();
+var EN={brand:"Class Head Election · 6802",term:"Year 2 · Semester 2",demo:"Preview page. Scores are sample data and not connected to the real database.",netwarn:"Can't reach the network. Scores may be out of date. Retrying…",prek:"Voting opens in",predate:"Fri 16 Oct · 09:00",prehint1:"Have your student ID ready",prehint2:"One person, one vote · Closes at 15:00",sidlabel:"Your student ID",sidhint:"Just the last 3 digits is fine",signinbtn:"Go to ballot",served:"Why are some names missing?",bout:"Not me? Change ID",bout2:"Sign out",allscores:"All scores",seatsh:"Voted",seatssub:"By seat number. This page doesn't show who voted for whom.",foot0:"Class 6802 · Results update live",pickbtn:"Pick this person",search:"Search name or number",gridaria:"Eligible candidates",sidearia:"Live results",finalaria:"Election results",preclock:"Time left until voting opens"};
+var THD={};
+function applyStatic(){
+  var els=document.querySelectorAll("[data-t]");
+  for(var i=0;i<els.length;i++){var k=els[i].getAttribute("data-t");if(!(k in THD))THD[k]=els[i].textContent;els[i].textContent=LANG==="en"?EN[k]:THD[k];}
+  var ph=document.querySelectorAll("[data-tp]");
+  for(i=0;i<ph.length;i++){k=ph[i].getAttribute("data-tp");if(!("p"+k in THD))THD["p"+k]=ph[i].getAttribute("placeholder");ph[i].setAttribute("placeholder",LANG==="en"?EN[k]:THD["p"+k]);}
+  var ar=document.querySelectorAll("[data-ta]");
+  for(i=0;i<ar.length;i++){k=ar[i].getAttribute("data-ta");if(!("a"+k in THD))THD["a"+k]=ar[i].getAttribute("aria-label");ar[i].setAttribute("aria-label",LANG==="en"?EN[k]:THD["a"+k]);}
+  document.documentElement.lang=LANG;document.title=tr("เลือกหัวหน้าห้อง ค.6802","Class Head Election · 6802");
+  var lb=LANG==="en"?"ไทย":"EN";$("lang").textContent=lb;$("lang2").textContent=lb;
+  $("lang").setAttribute("aria-label",LANG==="en"?"เปลี่ยนเป็นภาษาไทย":"Switch to English");$("lang2").setAttribute("aria-label",LANG==="en"?"เปลี่ยนเป็นภาษาไทย":"Switch to English");
+}
 var $=function(id){return document.getElementById(id);};
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
 function ini(p){return p.first.replace(/^[เแโใไ]/,"").charAt(0);}
 function av(p,cls){return '<span class="av '+(cls||'')+'" aria-hidden="true">'+esc(ini(p))+'<img src="'+p.id+'.jpg" alt="" onerror="this.remove()"></span>';}
 
+/* ---------- schedule (เวลาไทย 16 ต.ค. 09:00-15:00 = 02:00-08:00 UTC) ---------- */
+var OPEN_AT=Date.UTC(2026,9,16,2,0,0),CLOSE_AT=Date.UTC(2026,9,16,8,0,0);
+var qp=new URLSearchParams(location.search),forced=null,offset=0;
+if(qp.get("now")){var fd=Date.parse(qp.get("now"));if(!isNaN(fd))forced=fd-Date.now();}
+function now(){return Date.now()+(forced!==null?forced:offset);}
+try{fetch(location.href.split("#")[0],{method:"HEAD",cache:"no-store"}).then(function(r){var d=Date.parse(r.headers.get("Date"));if(d)offset=d-Date.now();}).catch(function(){});}catch(e){}
+
 /* ---------- backend: Firestore when configured, in-memory demo otherwise ---------- */
 var CFG=window.FIREBASE_CONFIG,Backend;
 function demoBackend(){
-  var votes={},open=true,cb=null;
+  var votes={},cb=null;
   [["102","121"],["107","126"],["108","121"],["109","126"],["110","116"],["111","121"],["113","126"],["101","121"],["103","116"],["104","108"],["117","121"],["118","116"],["119","126"],["120","108"]]
     .forEach(function(v){votes["6840102"+v[0]]="6840102"+v[1];});
   var pool=["6840102121","6840102126","6840102116","6840102108","6840102123","6840102129"];
-  function emit(){if(cb)cb({votes:Object.assign({},votes),open:open,online:true});}
-  setInterval(function(){
+  var testTie=qp.get("demo")==="tie",votes2={},runoff=null;
+  if(testTie){ /* ตัวอย่างทดสอบหน้าจอ: ?demo=tie&r2=wait|pre|open|done */
+    votes={};var seq=ROSTER.map(function(p){return p.id;}),plan=[["121",8],["126",7],["116",5],["108",5],["123",2],["129",1],["107",1]],i=0;
+    plan.forEach(function(x){for(var n=0;n<x[1];n++)votes[seq[i++]]="6840102"+x[0];});
+    var r2=qp.get("r2"),t0=Date.now()+(forced!==null?forced:0);
+    if(r2==="pre")runoff={cands:["6840102108","6840102116"],opens:t0+36e5,closes:t0+108e5};
+    if(r2==="open")runoff={cands:["6840102108","6840102116"],opens:t0-36e5,closes:t0+72e5};
+    if(r2==="done"){runoff={cands:["6840102108","6840102116"],opens:t0-72e5,closes:t0-36e5};ROSTER.slice(0,29).forEach(function(p,k){votes2[p.id]=k<17?"6840102108":"6840102116";});}
+  }
+  function emit(){if(cb)cb({votes:Object.assign({},votes),votes2:Object.assign({},votes2),runoff:runoff,open:true,online:true});}
+  if(!testTie)setInterval(function(){
     var left=ROSTER.filter(function(p){return !votes[p.id]&&p.id!==(window.__me||"");});
     if(left.length<4)return;votes[left[Math.floor(Math.random()*left.length)].id]=pool[Math.floor(Math.random()*pool.length)];emit();
   },6000);
   return {demo:true,
     subscribe:function(f){cb=f;emit();},
     cast:function(voter,cand){return new Promise(function(res,rej){setTimeout(function(){
-      if(votes[voter])return rej({code:"ALREADY"});votes[voter]=cand;emit();res();},500);});}};
+      if(votes[voter])return rej({code:"ALREADY"});votes[voter]=cand;emit();res();},500);});},
+    cast2:function(){return Promise.reject({code:"DENIED"});}};
 }
 function fireBackend(){
-  var cb=null,state={votes:{},open:true,online:true},api={};
+  var cb=null,state={votes:{},votes2:{},runoff:null,open:true,online:true},api={};
   var V="https://www.gstatic.com/firebasejs/10.14.1/";
-  function emit(){if(cb)cb({votes:Object.assign({},state.votes),open:state.open,online:state.online});}
+  function emit(){if(cb)cb({votes:Object.assign({},state.votes),votes2:Object.assign({},state.votes2),runoff:state.runoff,open:state.open,online:state.online});}
+  function listen(fs,db,name,key){
+    fs.onSnapshot(fs.collection(db,name),function(snap){
+      var v={};snap.forEach(function(d){var c=d.data().cand;if(c)v[d.id]=c;});state[key]=v;state.online=true;emit();
+    },function(){state.online=false;emit();});
+  }
   var ready=Promise.all([import(V+"firebase-app.js"),import(V+"firebase-firestore.js")]).then(function(m){
     var app=m[0].initializeApp(CFG),fs=m[1],db=fs.getFirestore(app);api.fs=fs;api.db=db;
-    fs.onSnapshot(fs.collection(db,"votes"),function(snap){
-      var v={};snap.forEach(function(d){var c=d.data().cand;if(c)v[d.id]=c;});state.votes=v;state.online=true;emit();
-    },function(){state.online=false;emit();});
+    listen(fs,db,"votes","votes");listen(fs,db,"votes2","votes2");
     fs.onSnapshot(fs.doc(db,"config","election"),function(s){state.open=!s.exists()||s.data().open!==false;emit();},function(){});
+    fs.onSnapshot(fs.doc(db,"config","runoff"),function(s){
+      if(!s.exists()){state.runoff=null;}else{var d=s.data(),ms=function(x){return x&&x.toMillis?x.toMillis():0;};state.runoff={cands:d.cands||[],opens:ms(d.opens),closes:ms(d.closes)};}
+      emit();
+    },function(){});
   });
   api.subscribe=function(f){cb=f;emit();};
-  api.cast=function(voter,cand){
+  function put(col,key,voter,cand){
     return ready.then(function(){
-      return api.fs.setDoc(api.fs.doc(api.db,"votes",voter),{cand:cand,at:api.fs.serverTimestamp()});
+      return api.fs.setDoc(api.fs.doc(api.db,col,voter),{cand:cand,at:api.fs.serverTimestamp()});
     }).catch(function(e){
-      if(e&&e.code==="permission-denied")throw {code:state.votes[voter]?"ALREADY":(state.open?"DENIED":"CLOSED")};
+      if(e&&e.code==="permission-denied")throw {code:state[key][voter]?"ALREADY":"DENIED"};
       throw {code:"NET"};
     });
-  };
+  }
+  api.cast=function(voter,cand){return put("votes","votes",voter,cand);};
+  api.cast2=function(voter,cand){return put("votes2","votes2",voter,cand);};
   return api;
 }
 Backend=CFG&&CFG.projectId?fireBackend():demoBackend();
+var TIMED=!Backend.demo||forced!==null;
 if(Backend.demo)$("demo").hidden=false;
 
 /* ---------- state ---------- */
-var S={votes:{},open:true,online:true},me=null,pick=null,view="signin",lastTop=["","",""];
+var S={votes:{},votes2:{},runoff:null,open:true,online:true},me=null,pick=null,view="signin",lastTop=["","",""],curKey="";
 try{var sv=localStorage.getItem("c6802-sid");if(sv&&BY[sv])me=sv;}catch(e){}
-function tally(){var t={};Object.keys(S.votes).forEach(function(v){var c=S.votes[v];t[c]=(t[c]||0)+1;});return t;}
-function ranked(){var t=tally();return CANDS.map(function(p){return {p:p,n:t[p.id]||0};}).sort(function(a,b){return b.n-a.n||a.p.seat-b.p.seat;});}
+function tallyOf(m){var t={};Object.keys(m).forEach(function(v){var c=m[v];t[c]=(t[c]||0)+1;});return t;}
+function ranked(){var t=tallyOf(S.votes);return CANDS.map(function(p){return {p:p,n:t[p.id]||0};}).sort(function(a,b){return b.n-a.n||a.p.seat-b.p.seat;});}
 function nVoters(){return Object.keys(S.votes).length;}
+function two(n){return (n<10?"0":"")+n;}
+function hms(ms){var t=Math.max(0,Math.floor(ms/1000));return {h:Math.floor(t/3600),m:Math.floor(t%3600/60),s:t%60};}
+
+/* ---------- phases ---------- */
+function phase(){
+  if(!TIMED)return S.open?"open":"closed";
+  var t=now();
+  if(!S.open||t>=CLOSE_AT)return "closed";
+  return t<OPEN_AT?"pre":"open";
+}
+/* the first tie that touches ranks 1-3 → runoff among exactly those people */
+function contest(){
+  var r=ranked(),j=0;
+  while(j<3){
+    var k=j;while(k+1<r.length&&r[k+1].n===r[j].n)k++;
+    if(k>j&&r[j].n>0)return {start:j,group:r.slice(j,k+1),ids:r.slice(j,k+1).map(function(e){return e.p.id;})};
+    j=k+1;
+  }
+  return null;
+}
+function sameSet(a,b){return a.length===b.length&&a.slice().sort().join()===b.slice().sort().join();}
+function roundTwo(){
+  var c=contest();if(!c)return {kind:"none"};
+  var R=S.runoff;if(!R||!sameSet(R.cands,c.ids)||!R.opens||!R.closes)return {kind:"wait",c:c};
+  var t=now();
+  if(t<R.opens)return {kind:"pre",c:c,R:R};
+  if(t<R.closes)return {kind:"open",c:c,R:R};
+  return {kind:"done",c:c,R:R};
+}
+function key(){var p=phase();return p!=="closed"?p:"closed:"+roundTwo().kind;}
+function inR2(){return key()==="closed:open";}
 
 /* ---------- live top 3 ---------- */
 function boardHTML(){
-  var r=ranked(),mx=Math.max(r[0].n,1),h='<div class="board-head"><h2>อันดับตอนนี้</h2><span class="live'+(S.online?'':' off')+'"><i></i>'+(S.online?'สด':'ออฟไลน์')+'</span></div>';
+  var r=ranked(),mx=Math.max(r[0].n,1),h='<div class="board-head"><h2>'+tr('อันดับตอนนี้','Top 3 right now')+'</h2><span class="live'+(S.online?'':' off')+'"><i></i>'+(S.online?tr('สด','Live'):tr('ออฟไลน์','Offline'))+'</span></div>';
   for(var i=0;i<3;i++){
-    var e=r[i],has=e.n>0,tie=has&&((r[i-1]&&r[i-1].n===e.n)||(r[i+1]&&r[i+1].n===e.n)),key=has?e.p.id:"",swap=key&&lastTop[i]&&lastTop[i]!==key;
+    var e=r[i],has=e.n>0,tie=has&&((r[i-1]&&r[i-1].n===e.n)||(r[i+1]&&r[i+1].n===e.n)),k=has?e.p.id:"",swap=k&&lastTop[i]&&lastTop[i]!==k;
     h+='<div class="slot" data-rank="'+(i+1)+'"><span class="rank num" aria-hidden="true">'+(i+1)+'</span>'+
       '<span class="ph" aria-hidden="true">'+(has?av(e.p,'s40'):'')+'</span>'+
-      '<div class="who"><div class="role">'+ROLES[i]+(tie?'<span class="tie">คะแนนเท่ากัน</span>':'')+'</div>'+
-      '<div class="name'+(has?'':' empty')+(swap?' swap':'')+'">'+(has?esc(e.p.first)+' '+esc(e.p.last):'ยังไม่มีคะแนน')+'</div></div>'+
-      '<div class="count num">'+(has?e.n:0)+'<small>เสียง</small></div>'+
+      '<div class="who"><div class="role">'+ROLES[i]+(tie?'<span class="tie">'+tr('คะแนนเท่ากัน','Tied')+'</span>':'')+'</div>'+
+      '<div class="name'+(has?'':' empty')+(swap?' swap':'')+'">'+(has?esc(e.p.first)+' '+esc(e.p.last):tr('ยังไม่มีคะแนน','No votes yet'))+'</div></div>'+
+      '<div class="count num">'+(has?e.n:0)+'<small>'+tr('เสียง','votes')+'</small></div>'+
       '<div class="meter" aria-hidden="true"><i style="width:'+(has?Math.round(e.n/mx*100):0)+'%"></i></div></div>';
   }
   lastTop=[0,1,2].map(function(i){return r[i].n>0?r[i].p.id:"";});
   return h;
 }
 
+/* ---------- final board ---------- */
+function finalOrder(c,rt){
+  var r=ranked();if(!c)return {list:r,tieAgain:false};
+  var t2=tallyOf(S.votes2),g=c.group.map(function(e){return {p:e.p,n:e.n,n2:t2[e.p.id]||0};});
+  if(rt.kind!=="done")return {list:r,tieAgain:false};
+  g.sort(function(a,b){return b.n2-a.n2||a.p.seat-b.p.seat;});
+  var again=false;for(var i=0;i<g.length-1;i++){if(g[i].n2===g[i+1].n2&&c.start+i<2)again=true;}
+  return {list:r.slice(0,c.start).concat(g).concat(r.slice(c.start+g.length)),tieAgain:again,r2:t2};
+}
+function faces(group,cls){return '<span class="faces">'+group.map(function(e){return av(e.p||e,cls||'');}).join("")+'</span>';}
+function finalHTML(){
+  var rt=roundTwo(),c=rt.c||null,fo=finalOrder(c,rt),L=fo.list,total=nVoters()||1,h='<div class="fin-h"><h2>'+tr('ผลการเลือกตั้ง','Election results')+'</h2>';
+  var contested=function(i){return c&&rt.kind!=="done"&&i>=c.start;};
+  function person(i){
+    var e=L[i],card=i===0;
+    var shown=rt.kind==="done"&&c&&i>=c.start&&i<c.start+c.group.length?(e.n2||0):e.n,lab=rt.kind==="done"&&c&&i>=c.start&&i<c.start+c.group.length?tr("เสียง (รอบสอง)","votes (round 2)"):tr("เสียง","votes");
+    var pct=Math.round(shown/(lab===tr("เสียง","votes")?total:Math.max(1,Object.keys(S.votes2).length))*100);
+    if(card)return '<section class="win card"><span class="pill">'+ROLES[0]+'</span>'+av(e.p)+'<div><h3>'+esc(e.p.first)+' '+esc(e.p.last)+'</h3><p><b class="num">'+shown+'</b> '+lab+' · <span class="num">'+pct+'</span>%</p></div></section>';
+    return '<section class="mini card"><span class="r">'+ROLES[i]+'</span>'+av(e.p)+'<div style="min-width:0"><div class="n1">'+esc(e.p.first)+' '+esc(e.p.last)+'</div><div class="n2"><b class="num">'+shown+'</b> '+lab+' · <span class="num">'+pct+'</span>%</div></div></section>';
+  }
+  function cont(i){return '<section class="mini cont card'+'"><span class="r">'+ROLES[i]+'</span>'+faces(c.group,'')+'<div><div class="n1">'+tr('รอผลรอบสอง','Awaiting round 2')+'</div><div class="n2">'+tr('เสมอกัน','Tied at')+' <b class="num">'+c.group[0].n+'</b> '+tr('เสียง','votes')+'</div></div></section>';}
+  var slots=[0,1,2].map(function(i){return contested(i)?cont(i):person(i);});
+  h+=slots[0]+'<div class="duo">'+slots[1]+slots[2]+'</div></div>';
+  var info="";
+  if(rt.kind==="wait"){
+    info='<section class="info card"><h2>'+tr('คะแนนเสมอกัน · โหวตรอบสอง','Tie · Round 2 vote')+'</h2><p>'+tr('คะแนนเสมอกันที่อันดับ '+(c.start+1)+' จึงโหวตใหม่เฉพาะ '+c.group.length+' คนนี้ ทุกคนในห้องโหวตได้คนละ 1 เสียง ผู้ที่ได้อันดับชัดเจนแล้วยืนตามผลรอบแรก ผู้ดูแลจะประกาศเวลาเปิดรอบสอง','Rank '+(c.start+1)+' is tied, so only these '+c.group.length+' people go to a new vote. Everyone in the class gets 1 vote. Anyone with a clear rank keeps their first-round result. The organizer will announce when round 2 opens.')+'</p>'+faces(c.group,'')+'</section>';
+  }else if(rt.kind==="pre"){
+    info='<section class="info card"><h2>'+tr('โหวตรอบสองเปิดใน','Round 2 opens in')+'</h2><div class="clock" id="r2clock" role="timer"></div><p>'+tr('เลือก 1 ใน '+c.group.length+' คนที่คะแนนเสมอกัน','Pick 1 of the '+c.group.length+' tied people')+'</p></section>';
+  }else if(rt.kind==="open"){
+    var did=me&&S.votes2[me];
+    info='<section class="info card"><h2>'+tr('โหวตรอบสองเปิดอยู่','Round 2 is open')+'</h2><p>'+tr('เลือก 1 ใน '+c.group.length+' คนที่คะแนนเสมอกัน ทุกคนโหวตได้คนละ 1 เสียง','Pick 1 of the '+c.group.length+' tied people. Everyone gets 1 vote.')+'</p>'+faces(c.group,'')+
+      (did?'<p><b>'+tr('คุณโหวตรอบสองแล้ว','You voted in round 2')+'</b> '+tr('ขอบคุณครับ','Thank you')+'</p>':'<button class="btn" id="b-r2" type="button">'+tr('เข้าสู่รอบสอง','Go to round 2')+'</button>')+'</section>';
+  }else if(fo.tieAgain){
+    info='<section class="info card"><h2>'+tr('รอบสองยังเสมออีก','Still tied after round 2')+'</h2><p>'+tr('คะแนนรอบสองยังเท่ากัน ให้ผู้ดูแลและห้องตัดสินร่วมกัน','Round 2 is still level. The organizer and the class will decide together.')+'</p></section>';
+  }
+  h+=info;
+  var t2=fo.r2||{};
+  h+='<div class="all card"><h2>'+tr('คะแนนทุกคน','All scores')+'</h2><ol>'+L.map(function(e,i){
+    var inG=c&&i>=c.start&&i<c.start+c.group.length,mark=inG?'<span class="tagx">'+tr('เสมอ','Tied')+(rt.kind==="done"?' · '+tr('รอบสอง','round 2')+' '+(t2[e.p.id]||0):'')+'</span>':'';
+    var win=i<3&&e.n>0&&!(contested(i));
+    return '<li class="'+(win?'top':'')+'"><span class="pos num">'+(i+1)+'</span>'+av(e.p,'s30')+'<span class="nm2">'+esc(e.p.first)+' <small>'+esc(e.p.last)+'</small>'+mark+'</span><span class="v num">'+e.n+'</span></li>';
+  }).join("")+'</ol></div>';
+  h+='<p class="foot">'+tr('โหวตแล้ว '+nVoters()+'/29 คน · ปิดรับโหวตรอบแรก 15:00 น.',nVoters()+'/29 voted · Round 1 closed at 15:00')+'</p>';
+  return h;
+}
+
+/* ---------- ticker: clocks + phase changes ---------- */
+function clockHTML(ms){var x=hms(ms);return [[x.h,tr("ชั่วโมง","hours")],[x.m,tr("นาที","min")],[x.s,tr("วินาที","sec")]].map(function(a){return '<div><b>'+two(a[0])+'</b>'+a[1]+'</div>';}).join("");}
+var lastRed=-1;
+function dg(t){var h=Math.floor(t/3600),m=Math.floor(t%3600/60),s=t%60;return [Math.floor(h/10),h%10,Math.floor(m/10),m%10,Math.floor(s/10),s%10];}
+function redClock(ms,force){
+  var t=Math.max(0,Math.floor(ms/1000));if(t===lastRed&&!force)return;lastRed=t;
+  var nw=dg(t),od=dg(t+1),h="";
+  for(var i=0;i<6;i++){
+    if(i===2||i===4)h+='<div class="rs2">:</div>';
+    h+='<div class="rd" aria-hidden="true"><div class="'+(nw[i]===od[i]?'':(nw[i]%2?'ra':'rb'))+'"><span>'+nw[i]+'</span><span>'+od[i]+'</span></div></div>';
+  }
+  var c=$("clock");c.innerHTML=h;c.setAttribute("data-now",two(Math.floor(t/3600))+":"+two(Math.floor(t%3600/60))+":"+two(t%60));
+}
+function tick(){
+  var k=key();if(k!==curKey){route();return;}
+  var t=now();
+  if(k==="pre"){redClock(OPEN_AT-t);}
+  if(k==="open"||k==="closed:open"){
+    var end=k==="open"?CLOSE_AT:S.runoff.closes,start=k==="open"?OPEN_AT:S.runoff.opens,x=hms(end-t);
+    $("tl-t").textContent=two(x.h)+":"+two(x.m)+":"+two(x.s);$("tl-i").style.width=Math.min(100,Math.max(0,Math.round((t-start)/(end-start)*100)))+"%";
+  }
+  if(k==="closed:pre"&&$("r2clock"))$("r2clock").innerHTML=clockHTML(S.runoff.opens-t);
+}
+setInterval(tick,1000);
+
 /* ---------- views ---------- */
+var VIEWS=["pre","signin","ballot","results","final"];
 function show(v){
-  if(!S.open&&v!=="results")v="results";
-  view=v;["signin","ballot","results"].forEach(function(n){$("v-"+n).hidden=n!==v;});
+  view=v;VIEWS.forEach(function(n){$("v-"+n).hidden=n!==v;});
   dock(false);render();window.scrollTo({top:0});
 }
 function render(){
-  $("turnN").textContent=nVoters()+"/29";
+  var k=key(),fin=k.indexOf("closed")===0;
+  document.body.classList.toggle("fin",fin||k==="pre");document.body.classList.toggle("pre",k==="pre");var tc=$("tc");if(tc)tc.content=k==="pre"?"#c8102e":"#fbf7f7";
+  var badge=$("turn");
+  if(k==="pre")badge.innerHTML=tr("ยังไม่เปิดโหวต","Not open yet");
+  else if(k==="closed:open")badge.innerHTML=tr("โหวตรอบสอง","Round 2");
+  else if(fin)badge.innerHTML=tr("ปิดรับโหวตแล้ว","Voting closed");
+  else badge.innerHTML='<b class="num">'+nVoters()+'/29</b> '+tr('โหวตแล้ว','voted');
   $("netwarn").hidden=S.online;
-  $("board").innerHTML=boardHTML();
-  var showSeats=view==="results";$("seats-c").hidden=!showSeats;
-  if(showSeats)renderResults();
+  var tl=$("timeleft"),showTl=k==="open"||k==="closed:open";tl.hidden=!showTl;
+  if(showTl&&!$("tl-t")){tl.innerHTML='<div class="row1"><h2>'+(k==="open"?tr('เหลือเวลาโหวต','Time left to vote'):tr('เหลือเวลาโหวตรอบสอง','Time left in round 2'))+'</h2><span class="t" id="tl-t" role="timer"></span></div><div class="bar2" aria-hidden="true"><i id="tl-i"></i></div><p>'+(k==="open"?tr('ปิดรับโหวต 15:00 น. แล้วระบบสรุปผลให้ทันที','Voting closes at 15:00 and the results are summarized right away'):tr('ปิดรับโหวตรอบสองตามเวลาที่ประกาศ','Round 2 closes at the announced time'))+'</p>';}
+  if(!showTl)tl.innerHTML="";
+  $("side").hidden=k!=="open";
+  if(view==="results"){$("seats-c").hidden=false;}else $("seats-c").hidden=true;
+  if(!$("side").hidden)$("board").innerHTML=boardHTML();
+  if(view==="signin"){var r2s=k==="closed:open",cc=contest();$("h-signin").textContent=r2s?tr("โหวตรอบสอง","Round 2 vote"):tr("เลือกหัวหน้า รอง และเลขาคนใหม่","Choose the new head, deputy and secretary");
+    $("signin-sub").textContent=r2s&&cc?tr("ใส่รหัสของคุณ แล้วเลือก 1 ใน "+cc.group.length+" คนที่คะแนนเสมอกัน","Enter your ID, then pick 1 of the "+cc.group.length+" tied people"):tr("เลือกได้ 1 คน คะแนนอันดับ 1, 2, 3 เป็นหัวหน้า รอง และเลขาตามลำดับ","Pick 1 person. Ranks 1, 2 and 3 become head, deputy and secretary.");}
+  if(view==="results")renderResults();
+  if(view==="final"){$("final").innerHTML=finalHTML();var b=$("b-r2");if(b)b.onclick=function(){afterSignin(true);};}
+  if(view==="pre")redClock(OPEN_AT-now(),true);
+  if(showTl)tick();
+}
+function route(){
+  curKey=key();var k=curKey;
+  if(k==="pre")return show("pre");
+  if(k==="open")return show(me?(S.votes[me]?"results":"ballot"):"signin");
+  if(k==="closed:open")return show(me&&!S.votes2[me]?"ballot":(me?"final":"signin"));
+  return show("final");
 }
 function renderResults(){
   var mp=me&&BY[me],mine=me&&S.votes[me]?BY[S.votes[me]]:null,hv=me&&S.votes[me];
-  if(!S.open){
-    $("voted").innerHTML='<span class="ok"><svg><use href="#i-check"/></svg></span><p>ปิดรับโหวตแล้ว<br><small>นี่คือผลสุดท้าย</small></p>';
-  }else if(hv){
-    $("voted").innerHTML='<span class="ok"><svg><use href="#i-check"/></svg></span><p>'+esc(mp.first)+' โหวตแล้ว<br><small>คุณเลือก '+esc(mine.first)+' '+esc(mine.last)+' · เห็นแค่คุณ</small></p>';
+  if(hv){
+    $("voted").innerHTML='<span class="ok"><svg><use href="#i-check"/></svg></span><p>'+esc(mp.first)+' '+tr('โหวตแล้ว','has voted')+'<br><small>'+tr('คุณเลือก ','You picked ')+esc(mine.first)+' '+esc(mine.last)+' · '+tr('เห็นแค่คุณ','only you can see this')+'</small></p>';
   }else{
-    $("voted").innerHTML='<p>ยังไม่ได้โหวต<br><small>เลือกรหัสของคุณเพื่อโหวต</small></p>';
+    $("voted").innerHTML='<p>'+tr('ยังไม่ได้โหวต','Not voted yet')+'<br><small>'+tr('เลือกรหัสของคุณเพื่อโหวต','Enter your ID to vote')+'</small></p>';
   }
   var r=ranked();
   $("list").innerHTML=r.map(function(e,i){
     return '<li class="'+(i<3&&e.n>0?'top':'')+'"><span class="pos num">'+(i+1)+'</span>'+av(e.p,'s30')+'<span class="nm2">'+esc(e.p.first)+' <small>'+esc(e.p.last)+'</small></span><span class="v num">'+e.n+'</span></li>';
   }).join("");
-  $("seats").innerHTML=ROSTER.map(function(p){return '<span class="seat-b num'+(S.votes[p.id]?' in':'')+'" title="เลขที่ '+p.seat+'">'+p.seat+'</span>';}).join("");
+  $("seats").innerHTML=ROSTER.map(function(p){return '<span class="seat-b num'+(S.votes[p.id]?' in':'')+'" title="'+tr('เลขที่ ','No. ')+p.seat+'">'+p.seat+'</span>';}).join("");
   var pend=ROSTER.filter(function(p){return !S.votes[p.id];});
-  $("pending").textContent=pend.length?"ยังไม่โหวต "+pend.length+" คน: "+pend.map(function(p){return p.first;}).join(" · "):"โหวตครบทั้งห้องแล้ว";
+  $("pending").textContent=pend.length?tr("ยังไม่โหวต "+pend.length+" คน: ","Not voted ("+pend.length+"): ")+pend.map(function(p){return p.first;}).join(" · "):tr("โหวตครบทั้งห้องแล้ว","Everyone has voted");
   $("b-out2").hidden=!me;
 }
 
@@ -383,41 +628,55 @@ function renderResults(){
 function parseSid(v){v=(v||"").replace(/\D/g,"");if(v.length===3)v="6840102"+v;return v;}
 $("sid").addEventListener("input",function(){
   var v=this.value.replace(/\D/g,"");this.value=v;var id=parseSid(v),p=BY[id];$("sid-err").hidden=true;
-  if(p){$("me").hidden=false;$("me").innerHTML=av(p)+'<p>'+esc(p.first)+' '+esc(p.last)+'<br><small>เลขที่ '+p.seat+'</small></p>';}else $("me").hidden=true;
+  if(p){$("me").hidden=false;$("me").innerHTML=av(p)+'<p>'+esc(p.first)+' '+esc(p.last)+'<br><small>'+tr('เลขที่ ','No. ')+p.seat+'</small></p>';}else $("me").hidden=true;
   $("b-signin").disabled=!p;
-  if(!p&&(v.length===3||v.length===10)){$("sid-err").hidden=false;$("sid-err").textContent="ไม่พบรหัสนี้ในห้อง ค.6802 ลองเช็กตัวเลขอีกครั้ง";}
+  if(!p&&(v.length===3||v.length===10)){$("sid-err").hidden=false;$("sid-err").textContent=tr("ไม่พบรหัสนี้ในห้อง ค.6802 ลองเช็กตัวเลขอีกครั้ง","This ID isn't in class 6802. Please check the number again.");}
 });
+function afterSignin(quiet){
+  var k=key();pick=null;
+  if(k==="open"){if(S.votes[me]){show("results");if(!quiet)toast(tr("รหัสนี้โหวตไปแล้ว","This ID has already voted"));}else{renderGrid();show("ballot");}}
+  else if(k==="closed:open"){if(S.votes2[me]){show("final");if(!quiet)toast(tr("รหัสนี้โหวตรอบสองไปแล้ว","This ID has already voted in round 2"));}else{renderGrid();show("ballot");}}
+  else route();
+}
 $("f-signin").addEventListener("submit",function(e){
   e.preventDefault();var id=parseSid($("sid").value);if(!BY[id])return;
   me=id;window.__me=id;try{localStorage.setItem("c6802-sid",id);}catch(x){}
-  pick=null;if(S.votes[id]){show("results");toast("รหัสนี้โหวตไปแล้ว");}else show("ballot");
+  afterSignin();
 });
-function logout(){me=null;window.__me="";pick=null;try{localStorage.removeItem("c6802-sid");}catch(e){}$("sid").value="";$("me").hidden=true;$("b-signin").disabled=true;show("signin");}
+function logout(){me=null;window.__me="";pick=null;try{localStorage.removeItem("c6802-sid");}catch(e){}$("sid").value="";$("me").hidden=true;$("b-signin").disabled=true;route();}
 $("b-out").onclick=logout;$("b-out2").onclick=logout;
 
-/* ballot */
+/* ballot (round 1: 22 people · round 2: only the tied group) */
+function ballotList(){
+  if(inR2()){var c=contest();if(c)return c.group.map(function(e){return e.p;});}
+  return CANDS;
+}
 function renderGrid(){
-  var q=$("q").value.trim(),list=CANDS.filter(function(p){return !q||(p.first+" "+p.last).indexOf(q)>-1||String(p.seat)===q;});
+  var r2=inR2(),base=ballotList();
+  $("h-ballot").textContent=r2?tr("รอบสอง · เลือก 1 คน","Round 2 · Pick 1"):tr("เลือก 1 คน","Pick 1");
+  $("ballot-sub").textContent=r2?tr("เลือก 1 ใน "+base.length+" คนที่คะแนนเสมอกัน","Pick 1 of the "+base.length+" tied people"):tr("ผู้มีสิทธิ์ 22 คน","22 eligible people");
+  $("q-wrap").hidden=base.length<=6;$("served-d").hidden=r2;
+  var q=$("q").value.trim(),list=base.filter(function(p){return !q||(p.first+" "+p.last).indexOf(q)>-1||String(p.seat)===q;});
   $("grid").innerHTML=list.length?list.map(function(p){
     return '<button type="button" class="cand" data-id="'+p.id+'" aria-pressed="'+(pick===p.id)+'">'+av(p)+
-      '<span class="txt"><span class="nm">'+esc(p.first)+' '+esc(p.last)+'</span><br><span class="meta num">เลขที่ '+p.seat+'</span></span>'+
+      '<span class="txt"><span class="nm">'+esc(p.first)+' '+esc(p.last)+'</span><br><span class="meta num">'+tr("เลขที่ ","No. ")+p.seat+'</span></span>'+
       '<span class="radio" aria-hidden="true"><svg><use href="#i-check"/></svg></span></button>';
-  }).join(""):'<div class="empty-search">ไม่เจอ "'+esc(q)+'" ในรายชื่อผู้มีสิทธิ์</div>';
+  }).join(""):'<div class="empty-search">'+tr('ไม่เจอ "'+esc(q)+'" ในรายชื่อผู้มีสิทธิ์','No match for "'+esc(q)+'" in the eligible list')+'</div>';
 }
-$("served-p").textContent="ห้องเราเปลี่ยนหัวหน้าทุกเทอม คนที่เคยเป็นหัวหน้า รอง หรือเลขาแล้วจะโหวตได้ แต่ไม่มีชื่อให้เลือก: "+ROSTER.filter(function(p){return p.served;}).map(function(p){return p.first;}).join(", ");
+function setServed(){$("served-p").textContent=tr("ห้องเราเปลี่ยนหัวหน้าทุกเทอม คนที่เคยเป็นหัวหน้า รอง หรือเลขาแล้วจะโหวตได้ แต่ไม่มีชื่อให้เลือก: ","Our class changes its head every term. People who have already served as head, deputy or secretary can vote but aren't on the ballot: ")+ROSTER.filter(function(p){return p.served;}).map(function(p){return p.first;}).join(", ");}setServed();
 $("q").addEventListener("input",renderGrid);
 $("grid").addEventListener("click",function(e){
   var b=e.target.closest(".cand");if(!b)return;var id=b.dataset.id;pick=pick===id?null:id;
   Array.prototype.forEach.call($("grid").querySelectorAll(".cand"),function(c){c.setAttribute("aria-pressed",c.dataset.id===pick);});
   dock(!!pick);
 });
-function dock(on){$("dock").classList.toggle("on",on);$("dock").setAttribute("aria-hidden",!on);$("b-pick").tabIndex=on?0:-1;if(on)$("b-pick").textContent="เลือก "+BY[pick].first;}
+function dock(on){$("dock").classList.toggle("on",on);$("dock").setAttribute("aria-hidden",!on);$("b-pick").tabIndex=on?0:-1;if(on)$("b-pick").textContent=tr("เลือก ","Pick ")+BY[pick].first;}
 $("b-pick").onclick=openSheet;
 var lastFocus=null,sending=false;
 function openSheet(){
   var p=BY[pick];lastFocus=document.activeElement;
-  $("sheet-body").innerHTML=av(p,'s68')+'<div><h2 id="h-confirm">'+esc(p.first)+' '+esc(p.last)+'</h2><p class="sub" style="margin:2px 0 0">ยืนยันแล้วเปลี่ยนไม่ได้</p></div><p class="err" id="cast-err" hidden></p>'+
-    '<div class="row"><button class="btn ghost" id="b-no" type="button">ยกเลิก</button><button class="btn" id="b-yes" type="button">ยืนยันโหวต</button></div>';
+  $("sheet-body").innerHTML=av(p,'s68')+'<div><h2 id="h-confirm">'+esc(p.first)+' '+esc(p.last)+'</h2><p class="sub" style="margin:2px 0 0">'+(inR2()?tr('โหวตรอบสอง · ','Round 2 · '):'')+tr('ยืนยันแล้วเปลี่ยนไม่ได้','Once confirmed, it can\'t be changed')+'</p></div><p class="err" id="cast-err" hidden></p>'+
+    '<div class="row"><button class="btn ghost" id="b-no" type="button">'+tr("ยกเลิก","Cancel")+'</button><button class="btn" id="b-yes" type="button">'+tr("ยืนยันโหวต","Confirm vote")+'</button></div>';
   dock(false);$("scrim").classList.add("on");$("sheet").classList.add("on");$("sheet").setAttribute("aria-hidden","false");
   $("b-no").onclick=closeSheet;$("b-yes").onclick=cast;setTimeout(function(){$("b-yes").focus();},50);
 }
@@ -425,26 +684,34 @@ function closeSheet(){if(sending)return;if(pick&&view==="ballot")dock(true);$("s
 $("scrim").onclick=closeSheet;
 document.addEventListener("keydown",function(e){if(e.key==="Escape"&&$("sheet").classList.contains("on"))closeSheet();});
 function cast(){
-  if(sending)return;sending=true;var b=$("b-yes");b.disabled=true;$("b-no").disabled=true;b.innerHTML='<span class="spin"></span>กำลังส่ง';
-  Backend.cast(me,pick).then(function(){
-    sending=false;closeSheet();show("results");toast("โหวตเรียบร้อย ขอบคุณครับ");
+  if(sending)return;sending=true;var r2=inR2(),b=$("b-yes");b.disabled=true;$("b-no").disabled=true;b.innerHTML='<span class="spin"></span>'+tr("กำลังส่ง","Sending");
+  (r2?Backend.cast2:Backend.cast)(me,pick).then(function(){
+    sending=false;closeSheet();route();toast(tr("โหวตเรียบร้อย ขอบคุณครับ","Vote recorded. Thank you!"));
   }).catch(function(e){
     sending=false;var c=e&&e.code;
-    if(c==="ALREADY"){closeSheet();show("results");toast("รหัสนี้โหวตไปแล้ว");return;}
-    if(c==="CLOSED"){closeSheet();show("results");toast("ปิดรับโหวตแล้ว");return;}
-    $("cast-err").hidden=false;$("cast-err").textContent=c==="NET"?"ส่งไม่สำเร็จ เช็กเน็ตแล้วกดยืนยันอีกครั้ง":"ระบบไม่รับโหวตนี้ ลองใหม่อีกครั้ง หรือแจ้งผู้ดูแล";
-    b.disabled=false;$("b-no").disabled=false;b.textContent="ยืนยันโหวต";
+    if(c==="ALREADY"){closeSheet();route();toast(tr("รหัสนี้โหวตไปแล้ว","This ID has already voted"));return;}
+    $("cast-err").hidden=false;$("cast-err").textContent=c==="NET"?tr("ส่งไม่สำเร็จ เช็กเน็ตแล้วกดยืนยันอีกครั้ง","Couldn't send. Check your connection and confirm again."):(key()==="open"||key()==="closed:open"?tr("ระบบไม่รับโหวตนี้ ลองใหม่อีกครั้ง หรือแจ้งผู้ดูแล","This vote was not accepted. Try again or tell the organizer."):tr("ปิดรับโหวตแล้ว","Voting is closed"));
+    b.disabled=false;$("b-no").disabled=false;b.textContent=tr("ยืนยันโหวต","Confirm vote");
   });
 }
 
 var tt;function toast(t){var el=$("toast");el.textContent=t;el.classList.add("on");clearTimeout(tt);tt=setTimeout(function(){el.classList.remove("on");},2600);}
 
+/* language switch */
+function setLang(l){
+  LANG=l;try{localStorage.setItem("c6802-lang",l);}catch(e){}
+  setRoles();applyStatic();setServed();lastTop=["","",""];
+  render();if(view==="ballot")renderGrid();
+  if($("dock").classList.contains("on")&&pick)dock(true);
+}
+$("lang").onclick=$("lang2").onclick=function(){setLang(LANG==="en"?"th":"en");};
+applyStatic();
 /* live updates */
 var first=true;
 Backend.subscribe(function(s){
-  var wasOpen=S.open;S.votes=s.votes;S.open=s.open;S.online=s.online;
-  if(first){first=false;renderGrid();show(me?(S.votes[me]||!S.open?"results":"ballot"):(S.open?"signin":"results"));return;}
-  if(wasOpen&&!S.open){show("results");toast("ปิดรับโหวตแล้ว");return;}
+  S.votes=s.votes;S.votes2=s.votes2;S.runoff=s.runoff;S.open=s.open;S.online=s.online;
+  var k=key();
+  if(first||k!==curKey){first=false;route();return;}
   render();
 });
 })();
