@@ -513,6 +513,14 @@ function finalOrder(c,rt){
   return {list:r.slice(0,c.start).concat(g).concat(r.slice(c.start+g.length)),tieAgain:again,r2:t2};
 }
 function faces(group,cls){return '<span class="faces">'+group.map(function(e){return av(e.p||e,cls||'');}).join("")+'</span>';}
+function whoVotedHTML(L,V,title){
+  var by={};Object.keys(V).forEach(function(v){(by[V[v]]=by[V[v]]||[]).push(v);});
+  var rows=L.filter(function(e){return by[e.p.id];}).sort(function(a,b){return by[b.p.id].length-by[a.p.id].length;}).map(function(e){
+    var ids=by[e.p.id].slice().sort(),names=ids.map(function(i){return BY[i]?esc(BY[i].first):i;}).join(' · ');
+    return '<li style="display:block;padding:10px 0;border-top:1px solid rgba(0,0,0,.08)"><b>'+esc(e.p.first)+' '+esc(e.p.last)+'</b> <span class="num">('+ids.length+')</span><br><small>'+names+'</small></li>';
+  }).join("");
+  return '<div class="all card"><h2>'+title+'</h2><ol style="list-style:none;padding:0;margin:0">'+(rows||'<li>-</li>')+'</ol></div>';
+}
 function finalHTML(){
   var rt=roundTwo(),c=rt.c||null,fo=finalOrder(c,rt),L=fo.list,total=nVoters()||1,h='<div class="fin-h"><h2>'+tr('ผลการเลือกตั้ง','Election results')+'</h2>';
   var contested=function(i){return c&&rt.kind!=="done"&&i>=c.start;};
@@ -546,6 +554,8 @@ function finalHTML(){
     var win=i<3&&e.n>0&&!(contested(i));
     return '<li class="'+(win?'top':'')+'"><span class="pos num">'+(i+1)+'</span>'+av(e.p,'s30')+'<span class="nm2">'+esc(e.p.first)+' <small>'+esc(e.p.last)+'</small>'+mark+'</span><span class="v num">'+e.n+'</span></li>';
   }).join("")+'</ol></div>';
+  h+=whoVotedHTML(L,S.votes,tr('ใครโหวตให้ใคร (รอบแรก)','Who voted for whom (round 1)'));
+  if(Object.keys(S.votes2).length){var L2=L.map(function(e){return {p:e.p,n:0};});h+=whoVotedHTML(L2,S.votes2,tr('ใครโหวตให้ใคร (รอบสอง)','Who voted for whom (round 2)'));}
   h+='<p class="foot">'+tr('โหวตแล้ว '+nVoters()+'/29 คน · ปิดรับโหวตรอบแรก 15:00 น.',nVoters()+'/29 voted · Round 1 closed at 15:00')+'</p>';
   return h;
 }
